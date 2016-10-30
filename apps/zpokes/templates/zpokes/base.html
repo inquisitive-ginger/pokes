@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>{% block title %}{% endblock %}</title>
+
+	<!-- Bulma CSS Framework and FontAwesome Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+	<style media="screen">
+		.nav {
+			padding: 10px 25px;
+			margin-bottom: 25px;
+		}
+
+		.is-brand > .title {
+			color: #b86bff;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<nav class="nav has-shadow">
+		  <div class="nav-left">
+		    <a class="nav-item is-brand" href="/">
+		      <h4 class="title is-4"><strong>Pokes!</strong></h4>
+		    </a>
+		  </div>
+		  <div class="nav-right nav-menu">
+			{% if request.session.user_id %}
+		    <a class="nav-item" href="/logout">
+		      Logout
+		    </a>
+  			{% endif %}
+		  </div>
+		</nav>
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>

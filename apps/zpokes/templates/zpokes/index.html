@@ -1,0 +1,41 @@
+{% extends "zpokes/base.html" %}
+{% block title %}Django Pokes{% endblock %}
+{% block content %}
+<h2 class="title is-1">Welcome, {{ user.alias }}!</h2>
+<h4 class="subtitle is-3">{{ poked_by_count }} people poked you, {{ received_poke_count }} times.</h4>
+<div class="box">
+	<div class="h5 title is-5">Poke History</div>
+	{% for poke in pokes_received %}
+	<p><strong>{{ poke.user.alias }}</strong> poked you {{ poke.pokes_received }} times</p>
+	{% endfor %}
+</div>
+<h3 class="subtitle is-3">Let's poke some people.</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Alias</th>
+			<th>Email</th>
+			<th>History</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for other in others %}
+		<tr>
+			<td>{{other.user.name}}</td>
+			<td>{{other.user.alias}}</td>
+			<td>{{other.user.email}}</td>
+			<td>{{other.pokes_inflicted}} pokes</td>
+			<td>
+				<form action="/poke/{{other.user.id}}" method="post">
+					{% csrf_token %}
+					<button class="button is-primary" type="submit">Poke!</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endblock %}

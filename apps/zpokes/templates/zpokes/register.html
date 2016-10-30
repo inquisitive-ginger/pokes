@@ -1,0 +1,89 @@
+{% extends "zpokes/base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="container column is-half">
+	<div class="notification is-info">
+		<span>Have an account? Login <a href="/login">here</a>.</span>
+	</div>
+	<form action="/register" method="post" class="box">
+		{% csrf_token %}
+		{% load widget_tweaks %}
+		<div class="control is-horizontal">
+			<div class="control-label"></div>
+			<div class="control">
+				<h3 class="title is-3">New Account</h3>
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label class="label">Name</label>
+			</div>
+			<div class="control">
+				{{ form.name | add_class:"input" }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label class="label">Alias</label>
+			</div>
+			<div class="control">
+				{{ form.alias | add_class:"input" }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label class="label">Email</label>
+			</div>
+			<div class="control">
+				{{ form.email | add_class:"input" }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label class="label">Birthday</label>
+			</div>
+			<div class="control is-grouped birthday-control">
+				{{ form.date_of_birth }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label for="" class="label">Password</label>
+			</div>
+			<div class="control">
+				{{ form.password | add_class:"input" }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label for="" class="label">Confirm</label>
+			</div>
+			<div class="control">
+				{{ form.password_confirmation | add_class:"input" }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label"></div>
+			<div class="control">
+				<button class="button is-primary" type="submit">Register</button>
+			</div>
+		</div>
+	</form>
+	<!-- Field Errors -->
+	{% for field in form.visible_fields %}
+	{% if field.errors %}
+	<div class="error notification is-danger">
+		{{ field.errors }}
+	</div>
+	{% endif %}
+	{% endfor %}
+	<!-- Non Field Errors -->
+	{% for error in form.non_field_errors %}
+	{% if error %}
+	<div class="error notification is-danger">
+		{{ error }}
+	</div>
+	{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}

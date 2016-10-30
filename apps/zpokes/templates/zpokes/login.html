@@ -1,0 +1,49 @@
+{% extends "zpokes/base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="container column is-half">
+	<div class="notification is-info">
+		<span>Need an account? Register <a href="/register">here</a>.</span>
+	</div>
+	<form action="/login" method="post" class="box">
+		{% csrf_token %}
+		{% load widget_tweaks %}
+		<div class="control is-horizontal">
+			<div class="control-label"></div>
+			<div class="control">
+				<h3 class="title is-3">Login</h3>
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label class="label">Email</label>
+			</div>
+			<div class="control">
+				{{ form.email | add_class:"input" }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label">
+				<label for="" class="label">Password</label>
+			</div>
+			<div class="control">
+				{{ form.password | add_class:"input" }}
+			</div>
+		</div>
+		<div class="control is-horizontal">
+			<div class="control-label"></div>
+			<div class="control">
+				<button class="button is-primary" type="submit">Login</button>
+			</div>
+		</div>
+	</form>
+	<!-- Non Field Errors -->
+	{% for error in form.non_field_errors %}
+	{% if error %}
+	<div class="error notification is-danger">
+		{{ error }}
+	</div>
+	{% endif %}
+	{% endfor %}
+	{% endblock %}
+</div>
